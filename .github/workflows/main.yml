@@ -107,7 +107,7 @@ jobs:
             echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
             echo "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}" >> .env
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/news_reader:latest
-            sudo docker-compose -f docker-compose-${{ env.TARGET_UPSTREAM }}.yml up -d --env-file .env
+            sudo docker-compose -f docker-compose-${{ env.TARGET_UPSTREAM }}.yml up -d
 
       - name: Check deploy server URL
         uses: jtalk/url-health-check-action@v3
