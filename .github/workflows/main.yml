@@ -69,6 +69,7 @@ jobs:
         run: |
           echo "LIVE_SERVER_IP=${{ secrets.LIVE_SERVER_IP }}" >> $GITHUB_ENV
           echo "LIVE_SERVER_PORT=${{ secrets.LIVE_SERVER_PORT }}" >> $GITHUB_ENV
+          # REDIS_HOST, REDIS_PORT, REDIS_DB는 .env 파일에 포함되므로 여기서 제거
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
           echo "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}" >> $GITHUB_ENV
 
@@ -81,7 +82,7 @@ jobs:
           else
             CURRENT_UPSTREAM=green
           fi
-          echo "CURRENT_UPSTREAM=$CURRENT_UPSTREAM" >> $GITHUB_ENV
+          echo "CURRENT_UPSTREAM=$CURRENT_UPSTREAM" >> $GITHUB_ENV # save-state 대체
           if [ $CURRENT_UPSTREAM = blue ]; then
             echo "CURRENT_PORT=8080" >> $GITHUB_ENV
             echo "STOPPED_PORT=8081" >> $GITHUB_ENV
@@ -102,13 +103,11 @@ jobs:
           host: ${{ secrets.LIVE_SERVER_IP }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
-          env:
-            LIVE_SERVER_IP: ${{ secrets.LIVE_SERVER_IP }}
-            LIVE_SERVER_PORT: ${{ secrets.LIVE_SERVER_PORT }}
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-            LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
           script: |
             cd /home/ubuntu/app
+            # 환경 변수를 .env 파일에 추가
+            echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> /home/ubuntu/app/.env
+            echo "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}" >> /home/ubuntu/app/.env
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/news_reader:latest
             sudo docker-compose -f docker-compose-${{ env.TARGET_UPSTREAM }}.yml up -d --env-file /home/ubuntu/app/.env
 
