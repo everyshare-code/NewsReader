@@ -55,10 +55,21 @@ jobs:
       - name: Push Docker
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/news_reader:latest
 
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Set environment variables
+        run: |
+          echo "LIVE_SERVER_IP=${{ secrets.LIVE_SERVER_IP }}" >> $GITHUB_ENV
+          echo "LIVE_SERVER_PORT=${{ secrets.LIVE_SERVER_PORT }}" >> $GITHUB_ENV
+          echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> $GITHUB_ENV
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> $GITHUB_ENV
+          echo "REDIS_DB=${{ secrets.REDIS_DB }}" >> $GITHUB_ENV
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          echo "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}" >> $GITHUB_ENV
+
       - name: Set target IP
         run: |
           STATUS=$(curl -o /dev/null -w "%{http_code}" "http://${{ secrets.LIVE_SERVER_IP }}/hc/env")
