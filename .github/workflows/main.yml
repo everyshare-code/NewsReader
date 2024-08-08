@@ -69,7 +69,6 @@ jobs:
         run: |
           echo "LIVE_SERVER_IP=${{ secrets.LIVE_SERVER_IP }}" >> $GITHUB_ENV
           echo "LIVE_SERVER_PORT=${{ secrets.LIVE_SERVER_PORT }}" >> $GITHUB_ENV
-          # REDIS_HOST, REDIS_PORT, REDIS_DB는 .env 파일에 포함되므로 여기서 제거
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
           echo "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}" >> $GITHUB_ENV
 
@@ -127,3 +126,14 @@ jobs:
           script_stop: true
           script: |
             sudo docker exec -i nginxserver bash -c 'echo "set \$service_url ${{ env.TARGET_UPSTREAM }};" > /etc/nginx/conf.d/service-env.inc && nginx -s reload'
+
+      - name: Stop current server
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.LIVE_SERVER_IP }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script_stop: true
+          script: |
+            sudo docker stop ${{env.CURRENT_UPSTREAM}}
+            sudo docker rm ${{env.CURRENT_UPSTREAM}}
