@@ -12,9 +12,6 @@ class ProjectSettings:
         self.PROJECT_NAME = os.getenv("PROJECT_NAME")
         self.ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS").split(',')
 
-        # 환경별 설정 로드
-        self.load_environment_settings()
-
         # 기본 설정
         self.DEFAULT_CONFIG = {
             "urls": {
@@ -50,11 +47,6 @@ class ProjectSettings:
             }
         }
 
-    def load_environment_settings(self):
-        # 환경별로 설정 값을 로드
-        self.HOST = os.getenv(f"{self.ENVIRONMENT.upper()}_SERVER_HOST")
-        self.PORT = int(os.getenv(f"{self.ENVIRONMENT.upper()}_SERVER_PORT"))
-        self.SERVER_NAME = os.getenv(f"{self.ENVIRONMENT.upper()}_SERVER_NAME")
 
 
 class Settings:
