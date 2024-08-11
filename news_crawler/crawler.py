@@ -106,11 +106,7 @@ def crawl_naver_news(category: str, base_url: str = None, categories: Dict[str, 
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Crawl Naver News")
-    parser.add_argument('category', type=str, help='News category to crawl')
-
-    args = parser.parse_args()
-    news_data = crawl_naver_news(args.category)
-    print(news_data)
+    from dotenv import load_dotenv
+    load_dotenv()
+    list = crawl_naver_news('it')
+    print(list)
