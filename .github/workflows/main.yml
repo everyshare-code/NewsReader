@@ -41,6 +41,9 @@ jobs:
 
       - name: Start Redis
         run: docker run --name redis -d -p 6379:6379 redis
+      # Nginx 컨테이너 실행
+      - name: Start Nginx
+        run: docker run --name nginx -d -p 80:80 nginx
 
       - name: Run tests
         env:
