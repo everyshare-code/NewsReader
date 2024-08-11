@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 from core.config import settings
 from typing import Dict
+
 router = APIRouter()
 
 
