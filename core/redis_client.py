@@ -17,7 +17,7 @@ class RedisClient:
         return cls._instance
 
     def _initialize(self, settings: RedisSettings):
-        self.client = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
+        self.client = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
 redis_settings = RedisSettings()
 redis_client = RedisClient(redis_settings).client
