@@ -11,7 +11,8 @@ class ProjectSettings:
         self.ENVIRONMENT = os.getenv("ENVIRONMENT")
         self.PROJECT_NAME = os.getenv("PROJECT_NAME")
         self.ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS").split(',')
-
+        self.HOST = os.getenv("HOST")
+        self.PORT = os.getenv("PORT")
         # 기본 설정
         self.DEFAULT_CONFIG = {
             "urls": {
