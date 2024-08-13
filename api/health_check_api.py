@@ -33,5 +33,5 @@ async def heath_check() -> HealthCheck:
             response_description="서버 환경 데이터 전달",
             status_code=status.HTTP_200_OK,
 )
-async def get_env() -> Dict:
-    return {"STATUS": settings.ENVIRONMENT}
+async def get_env() -> str:
+    return settings.ENVIRONMENT

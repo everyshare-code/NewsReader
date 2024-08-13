@@ -8,7 +8,7 @@ class ProjectSettings:
         load_dotenv()
 
         # 환경 변수 로드
-        self.ENVIRONMENT = os.getenv("ENVIRONMENT")
+        self.ENVIRONMENT = os.getenv("ENV")
         self.PROJECT_NAME = os.getenv("PROJECT_NAME")
         self.ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS").split(',')
         self.HOST = os.getenv("HOST")
