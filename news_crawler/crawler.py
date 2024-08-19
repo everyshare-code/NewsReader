@@ -8,7 +8,7 @@ import json
 from typing import List, Dict, Any
 from chat.chat_model import news_bot
 
-@ray.remote
+@ray.remote(num_cpus=1, memory=1 * 1024 * 1024 * 1024)
 def fetch_article_links(base_url: str, category_info: Dict[str, Any], category: str) -> List[str]:
     url = construct_url(base_url, category_info)
     article_links = []
