@@ -23,7 +23,7 @@ def create_app() -> FastAPI:
 
     # 라우터 포함
     app.include_router(news_router, prefix="/news", tags=["news"])
-    app.include_router(hc_router, prefix="/hc", tags=["heathcheck"])
+    app.include_router(hc_router, prefix="/env", tags=["heathcheck"])
 
     @app.get("/")
     async def root(request: Request, response: Response):
