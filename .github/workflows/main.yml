@@ -130,6 +130,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ubuntu
+          continue-on-error: true
           host: ${{ secrets.LIVE_SERVER_IP }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
