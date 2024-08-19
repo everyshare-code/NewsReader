@@ -2,7 +2,6 @@ from fastapi import APIRouter, status
 from pydantic import BaseModel
 from typing import Optional
 from core.config import settings
-from typing import Dict
 
 router = APIRouter()
 
@@ -28,10 +27,3 @@ async def heath_check() -> HealthCheck:
         port=settings.PORT,
     )
 
-@router.get("/env",
-            summary="서버 환경 확인",
-            response_description="서버 환경 데이터 전달",
-            status_code=status.HTTP_200_OK,
-)
-async def get_env() -> str:
-    return settings.ENVIRONMENT
