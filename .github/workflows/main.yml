@@ -105,8 +105,8 @@ jobs:
           script: |
             # 환경 변수를 .env 파일에 추가
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/news_reader:latest
-            export "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}"
-            export "LANGCHAIN_API_KEY=${{ secrets.LANGCHAIN_API_KEY }}"
+            export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+            export LANGCHAIN_API_KEY="${{ secrets.LANGCHAIN_API_KEY }}"
             sudo docker-compose -f docker-compose-${{ env.TARGET_UPSTREAM }}.yml up -d
 
       - name: Check deploy server URL
